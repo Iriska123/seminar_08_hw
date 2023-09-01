@@ -15,28 +15,16 @@ int[,,] GetArray(int x, int y, int z){
 
     int [,,] arr = new int[x,y,z];
 
-    int[] temp = new int[x * y *z];
-    
-    for (int i = 0; i < temp.Length; i++){
-        int rand = new Random().Next(10,100);
-        temp[i] = rand;
-
-        for(int j = 1; j < temp.Length; j++) {
-            if(temp[i] == temp[j]){
-                rand = new Random().Next(10,100) + 1;
-            }
-        }
-    }
-    Console.WriteLine(String.Join(",", temp));
-    
-    
-int count = 0;
     for (int i = 0; i < x; i++){
         for (int j = 0; j < y; j++){
             for (int k = 0; k < z; k++){
-                
-                arr[i, j, k] = temp[count];
-                count++;
+                while(true){
+                    int rand = new Random().Next(10,100);
+                    if(!IsDuplicate(arr,rand)){
+                        arr[i,j,k] = rand;
+                        break;
+                    }
+                }
             }
         }
     }
@@ -53,4 +41,19 @@ void PrintArray(int[,,] array){
         }
         //Console.WriteLine();
     }
+}
+
+bool IsDuplicate(int[,,] array, int value){
+    bool duplicate = false;
+     for(int i = 0; i < array.GetLength(0); i++){
+        for(int j = 0; j < array.GetLength(1); j++){
+            for(int k = 0; k < array.GetLength(2); k++){
+                if(array[i,j,k] == value){
+                    duplicate = true;
+                    break;
+                }
+            }
+        }
+    }
+    return duplicate;
 }
